@@ -8,6 +8,7 @@ import { Provider } from 'react-redux'
 import {BrowserRouter,Route} from 'react-router-dom'
 
 import Login from './container/login/login'
+import homePage from './container/homePage/homePage'
 import Register from './container/register/register'
 import reducers from './reducer'
 import AuthRoute from './component/authroute/authroute'
@@ -20,15 +21,12 @@ const store = createStore(reducers,compose(
     //调用Chrome 时redux调试工具
     window.devToolsExtension?window.devToolsExtension():f=>f
 ))
-function Boss(){
-    return <h2>Boss</h2>
-}
 ReactDom.render(
     <Provider store = {store}>
         <BrowserRouter>
             <div>
                 <AuthRoute></AuthRoute>
-                <Route path='/boss' component={Boss}></Route>
+                <Route path='/homePage' component={homePage}></Route>
                 <Route path='/login' component={Login}></Route>
                 <Route path='/register' component={Register}></Route>
 

@@ -7,7 +7,9 @@ const initState = {
     msg: '',
     user: '',
     pwd: '',
-    type: ''
+    type: '',
+    phone: '',
+    password:''
 }
 
 
@@ -46,6 +48,28 @@ export function register({user, pwd, repeatpwd, type}) {
                 if (res.status === 200) {
                     dispatch(registerSuccess({user, pwd, type}))
                     window.location.href = "./login";
+                } else {
+                    dispatch(errorMsg(res.data.msg))
+                }
+            })
+    }
+
+}
+export function loginApi({phone, password}) {
+    if (!phone || !password) {
+        return errorMsg('用户名密码必须输入')
+    }
+    return dispatch => {
+        axios.post('/user/login', {phone,password})
+            .then(res => {
+                // if (res.status === 200 && res.data.code === 0) {
+                console.log(res)
+                if (res.status === 200) {
+                    if (res.data.code === 1){
+                        dispatch(errorMsg(res.data.msg))
+                    }else {
+                        window.location.href = "./homePage";
+                    }
                 } else {
                     dispatch(errorMsg(res.data.msg))
                 }
